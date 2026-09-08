@@ -1,14 +1,21 @@
-package com.chx.dto;
+package com.chx.vo;
 
 import com.chx.entity.SetmealDish;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class SetmealDTO implements Serializable {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class SetmealVO implements Serializable {
 
     private Long id;
 
@@ -30,7 +37,12 @@ public class SetmealDTO implements Serializable {
     //图片
     private String image;
 
-    //套餐菜品关系
-    private List<SetmealDish> setmealDishes = new ArrayList<>();
+    //更新时间
+    private LocalDateTime updateTime;
 
+    //分类名称
+    private String categoryName;
+
+    //套餐和菜品的关联关系
+    private List<SetmealDish> setmealDishes = new ArrayList<>();
 }
