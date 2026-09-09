@@ -1,10 +1,8 @@
 package com.chx.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chx.constant.MessageConstant;
 import com.chx.constant.StatusConstant;
-import com.chx.dto.EmployeeDTO;
 import com.chx.dto.EmployeeLoginDTO;
 import com.chx.dto.EmployeePageQueryDTO;
 import com.chx.dto.EmployeeRegisterDTO;
@@ -13,11 +11,15 @@ import com.chx.exception.*;
 import com.chx.mapper.EmployeeMapper;
 import com.chx.result.PageResult;
 import com.chx.service.EmployeeService;
+import com.chx.utils.JwtUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -56,6 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new AccountLockedException(MessageConstant.ACCOUNT_LOCKED);
         }
 
+
         //3、返回实体对象
         return employee;
     }
@@ -75,9 +78,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         //对密码进行md5加密
         employeeRegisterDTO.setPassword(DigestUtils.md5DigestAsHex(employeeRegisterDTO.getPassword().getBytes()));
-
+        System.out.println("sex=" + employeeRegisterDTO.getSex());
         //将数据插入到数据库
         Employee employee = new Employee();
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
         BeanUtils.copyProperties(employeeRegisterDTO, employee);
         employee.setStatus(StatusConstant.ENABLE);
 
@@ -85,10 +90,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (result == 0) {
             throw new BaseException("注册失败");
         }
+
         //返回实体对象
         return employee;
     }
-        //返回实体对象
+
         public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO)  {
 
         Page<Employee> result = new Page<>(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());

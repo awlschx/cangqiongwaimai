@@ -28,7 +28,7 @@ public class Employee implements Serializable {
 
     private String phone;
 
-    private Long sex;
+    private String sex;
 
     private String idNumber;
 
