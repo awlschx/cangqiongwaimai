@@ -1,15 +1,21 @@
 package com.chx.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chx.constant.MessageConstant;
 import com.chx.constant.StatusConstant;
+import com.chx.dto.EmployeeDTO;
 import com.chx.dto.EmployeeLoginDTO;
+import com.chx.dto.EmployeePageQueryDTO;
 import com.chx.dto.EmployeeRegisterDTO;
 import com.chx.entity.Employee;
 import com.chx.exception.*;
 import com.chx.mapper.EmployeeMapper;
+import com.chx.result.PageResult;
 import com.chx.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -81,6 +87,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         //返回实体对象
         return employee;
+    }
+        //返回实体对象
+        public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO)  {
+
+        Page<Employee> result = new Page<>(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
+        employeeMapper.selectPage(result, employeePageQueryDTO);
+        return new PageResult(result.getTotal(),result.getRecords());
     }
 
 }

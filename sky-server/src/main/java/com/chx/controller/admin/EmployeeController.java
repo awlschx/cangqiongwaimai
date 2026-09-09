@@ -1,20 +1,21 @@
 package com.chx.controller.admin;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chx.constant.JwtClaimsConstant;
+import com.chx.dto.EmployeeDTO;
 import com.chx.dto.EmployeeLoginDTO;
+import com.chx.dto.EmployeePageQueryDTO;
 import com.chx.dto.EmployeeRegisterDTO;
 import com.chx.entity.Employee;
 import com.chx.properties.JwtProperties;
+import com.chx.result.PageResult;
 import com.chx.result.Result;
 import com.chx.service.EmployeeService;
 import com.chx.utils.JwtUtil;
 import com.chx.vo.EmployeeLoginVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -78,6 +79,13 @@ public class EmployeeController {
     public Result<String> register(@RequestBody EmployeeRegisterDTO employeeRegisterDTO) {
         log.info("员工注册：{}", employeeRegisterDTO);
         Employee employee = employeeService.register(employeeRegisterDTO);
-        return Result.success();
+        return Result.success("注册成功,欢迎你"+employee.getName());
+    }
+
+    //分页查询
+    @GetMapping("/page")
+    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO) {
+        PageResult result = employeeService.pageQuery(employeePageQueryDTO);
+        return Result.success(result);
     }
     }
