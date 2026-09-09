@@ -6,9 +6,10 @@
         <entry key="0">
           <value>
             <TabSessionState>
-              <option name="provider" value="kimi" />
+              <option name="provider" value="claude" />
+              <option name="sessionId" value="f4457636-9072-4443-8edb-0b3d9915fdba" />
               <option name="cwd" value="C:\develop\idea\idea.basic_code\sky-take-out" />
-              <option name="model" value="auto" />
+              <option name="model" value="claude-sonnet-5[1m]" />
               <option name="permissionMode" value="default" />
             </TabSessionState>
           </value>

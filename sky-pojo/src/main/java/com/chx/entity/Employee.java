@@ -1,5 +1,7 @@
 package com.chx.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,16 +28,19 @@ public class Employee implements Serializable {
 
     private String phone;
 
-    private String sex;
+    private Long sex;
 
     private String idNumber;
 
     private Integer status;
 
     //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    //该注解能自动在sql语句执行前填充时间
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
     private Long createUser;

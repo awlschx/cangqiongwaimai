@@ -1,6 +1,7 @@
 package com.chx.service;
 
 import com.chx.dto.EmployeeLoginDTO;
+import com.chx.dto.EmployeeRegisterDTO;
 import com.chx.entity.Employee;
 import com.chx.mapper.EmployeeMapper;
 import com.chx.vo.EmployeeLoginVO;
@@ -12,4 +13,6 @@ public interface EmployeeService {
     //登录接口,员工登录
     Employee login(EmployeeLoginDTO employeeLoginDTO);
 
+    //注册接口
+    Employee register(EmployeeRegisterDTO employeeRegisterDTO);
 }
