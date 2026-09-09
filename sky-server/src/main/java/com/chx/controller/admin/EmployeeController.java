@@ -90,4 +90,10 @@ public class EmployeeController {
         PageResult result = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(result);
     }
+    //根据id禁用员工
+    @PostMapping("/status/{id}")
+    public Result<String> disable(@PathVariable Long id){
+        employeeService.disable(id);
+        return Result.success("禁用成功");
+    }
     }

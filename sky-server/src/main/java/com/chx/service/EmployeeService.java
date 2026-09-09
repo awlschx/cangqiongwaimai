@@ -25,4 +25,6 @@ public interface EmployeeService {
     //page:当前页码
     //pageSize：每页显示的条数
     PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    void disable(Long id);
 }

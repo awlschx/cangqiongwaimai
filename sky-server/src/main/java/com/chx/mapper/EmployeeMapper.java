@@ -7,10 +7,7 @@ import com.chx.dto.EmployeeLoginDTO;
 import com.chx.dto.EmployeePageQueryDTO;
 import com.chx.entity.Employee;
 import com.chx.vo.EmployeeLoginVO;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface EmployeeMapper {
@@ -24,4 +21,11 @@ public interface EmployeeMapper {
 
     //分页查询
     IPage<Employee> selectPage(IPage<Employee> page, @Param("employeePageQueryDTO") EmployeePageQueryDTO employeePageQueryDTO);
-    }
+
+    //给service层返回int，根据影响了多少行来判断是否成功
+    @Select("select * from employee where id = #{id}")
+    int selectById(Long id);
+
+    @Update("update employee set status = #{disable} where id = #{id}")
+    int updateStatus(Long id, Integer disable);
+}

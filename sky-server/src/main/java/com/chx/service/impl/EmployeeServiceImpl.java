@@ -102,4 +102,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(result.getTotal(),result.getRecords());
     }
 
+    @Override
+    public void disable(Long id) {
+        //调用mapper层的根据id查询方法
+       //int count = employeeMapper.selectById(id);
+        //异常处理，不正常情况处理
+        //查询到了就修改status
+        int count= employeeMapper.updateStatus(id, StatusConstant.DISABLE);
+        if (count == 0) {
+            throw new BaseException("禁用失败");
+        }
+    }
+
 }
